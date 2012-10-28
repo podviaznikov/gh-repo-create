@@ -29,7 +29,7 @@ module.exports = function(name, options, callback){
             if(err){
               callback(err);
             } else{
-              gitane.run(baseDir, privKey, 'git push origin master', function(err, stderr, stdout){
+              gitane.run(baseDir, privKey, 'git push -u origin master', function(err, stderr, stdout){
                 if(err){
                   callback(err);
                 } else{
