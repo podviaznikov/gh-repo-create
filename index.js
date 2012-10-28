@@ -17,29 +17,42 @@ module.exports = function(name, options, callback){
     fs.writeFileSync(repoPath + '/LICENSE', options.license);
   }
 
-  gitane.run(baseDir, privKey, 'git add -A', function(err, stdout, stderr){
+  gitane.run(repoPath, privKey, 'git init', function(err, stdout, stderr){
     if(err){
       callback(err);
-    } else{
-      gitane.run(baseDir, privKey, 'git commit -a -m "initial commit"', function(err, stdout, stderr){
+      return;
+    }
+    gitane.run(repoPath, privKey, 'git add -A', function(err, stdout, stderr){
+      if(err){
+        callback(err);
+        return;
+      } 
+
+      gitane.run(repoPath, privKey, 'git commit -a -m "initial commit"', function(err, stdout, stderr){
         if(err){
           callback(err);
-        } else{
-          gitane.run(baseDir, privKey, 'git remote add origin ' + options.remote, function(err, stdout, stderr){
+          return;
+        } 
+
+        gitane.run(repoPath, privKey, 'git remote add origin ' + options.remote, function(err, stdout, stderr){
+          if(err){
+            callback(err);
+            return;
+          } 
+
+          gitane.run(repoPath, privKey, 'git push -u origin master', function(err, stderr, stdout){
             if(err){
               callback(err);
-            } else{
-              gitane.run(baseDir, privKey, 'git push -u origin master', function(err, stderr, stdout){
-                if(err){
-                  callback(err);
-                } else{
-                  callback(undefined);
-                }
-              });
-            }
+              return;
+            } 
+            callback(undefined);
+            
           });
-        }
+        
+        });
+        
       });
-    }
-  });
+      
+    });
+  });  
 };
