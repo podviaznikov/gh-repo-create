@@ -1,0 +1,23 @@
+{
+  "name": "gh-repo-create",
+  "version": "0.0.1",
+  "description": "Module for creating non-empty GitHub repos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/podviaznikov/gh-repo-create.git"
+  },
+  "keywords": [
+    "git",
+    "github",
+    "repository"
+  ],
+  "dependencies": {
+    "gitane": ">=0.1.2"
+  },
+  "author": "Anton Podviaznikov <anton@podviaznikov.com>",
+  "license": "MIT"
+}
